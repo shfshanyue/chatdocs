@@ -6,10 +6,8 @@ import { DocxLoader } from 'langchain/document_loaders/fs/docx';
 import { TextLoader } from 'langchain/document_loaders/fs/text';
 import { DirectoryLoader } from 'langchain/document_loaders/fs/directory';
 import { Prisma, PrismaClient, Document } from '@prisma/client'
-
-const prisma = new PrismaClient({
-  log: ['query'],
-})
+import { prisma } from '@/utils/prism';
+import { createVectorStore } from '@/utils/vector';
 
 export const run = async () => {
   try {
@@ -27,16 +25,12 @@ export const run = async () => {
 
     /* Split text into chunks */
     const textSplitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 200,
-      chunkOverlap: 50,
+      chunkSize: 500,
+      chunkOverlap: 100,
     });
 
     console.log('正在切割文档')
     const docs = await textSplitter.splitDocuments(rawDocs);
-
-    const embeddings = new OpenAIEmbeddings({}, {
-      basePath: process.env.OPENAI_BASE_URL + '/v1'
-    });
 
     console.log('正在存储向量数据库', docs)
     // TODO: fromDocuments 不生效，需要再次 addModels，且 id 无去重，需重新优化
@@ -50,23 +44,12 @@ export const run = async () => {
     //     content: PrismaVectorStore.ContentColumn,
     //   },
     // });
-    const vectorStore = PrismaVectorStore.withModel<Document>(prisma).create(
-      embeddings,
-      {
-        prisma: Prisma,
-        tableName: 'Document',
-        vectorColumnName: 'vector',
-        columns: {
-          id: PrismaVectorStore.IdColumn,
-          content: PrismaVectorStore.ContentColumn,
-        },
-      }
+    const vectorStore = createVectorStore()
+    const documents = await prisma.$transaction(
+      docs.map((doc) => prisma.document.create({ data: { content: doc.pageContent } }))
     )
-    await vectorStore.addModels(
-      await prisma.$transaction(
-        docs.map((doc) => prisma.document.create({ data: { content: doc.pageContent } }))
-      )
-    );
+    console.log(documents)
+    await vectorStore.addModels(documents)
   } catch (error) {
     console.log('error', error);
     throw new Error('Failed to ingest your data');
