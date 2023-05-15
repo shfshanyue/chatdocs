@@ -34,6 +34,7 @@
     "prisma": "^4.14.0",
     "solid-js": "1.6.12",
     "solidjs-use": "^1.2.0",
+    "tsx": "^3.12.7",
     "undici": "^5.20.0"
   },
   "devDependencies": {

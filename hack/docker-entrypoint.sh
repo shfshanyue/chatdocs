@@ -12,6 +12,10 @@ function main {
   init
 
   echo "Starting service..."
+  
+  npx prisma migrate deploy
+  npx tsx scripts/inject.ts
+
   eval "$sub_service_command &"
   sub_service_pid=$!
 
