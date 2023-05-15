@@ -1,6 +1,6 @@
 # ChatGPT 知识库聊天机器人
 
-使用 GPT-4 API 与 LangChain 构建适用于多个大型 PDF/Markdown/Docx/Txt 等任意文件格式的 ChatGPT 智能知识库 AI 机器人。
+使用 GPT-4 API 与 LangChain 构建适用于多个大型 `pdf`/`md`/`mdx`/`txt`/`epub` 等任意文件格式的 ChatGPT 智能知识库 AI 机器人。
 
 ## 环境要求
 
@@ -10,16 +10,12 @@
 
 ## 环境变量
 
-``` bash
 | Name | Description | Default |
 | --- | --- | --- |
 | `DATABASE_URL` | DataBase URL for postgres. | `null` |
 | `OPENAI_API_KEY` | Your API Key for OpenAI. | `null` |
-| `HTTPS_PROXY` | Provide proxy for OpenAI API. e.g. `http://127.0.0.1:7890` | `null` |
 | `OPENAI_BASE_URL` | Custom base url for OpenAI API. | `https://api.openai.com` |
-| `PUBLIC_SECRET_KEY` | Secret string for the project. Use for generating signatures for API calls | `null` |
 | `OPENAI_API_MODEL` | ID of the model to use. [List models](https://platform.openai.com/docs/api-reference/models/list) | `gpt-3.5-turbo` |
-```
 
 ## 搭建属于你自己的知识库
 

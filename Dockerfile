@@ -1,18 +1,19 @@
-FROM node:18-alpine as builder
-WORKDIR /usr/src
+FROM node:18-alpine
+
+WORKDIR /code
+
 RUN npm install -g pnpm
+
 COPY package.json pnpm-lock.yaml ./
+
 RUN pnpm install
+
 COPY . .
+
 RUN pnpm run build
 
-FROM node:18-alpine
-WORKDIR /usr/src
-RUN npm install -g pnpm
-COPY --from=builder /usr/src/dist ./dist
-COPY --from=builder /usr/src/hack ./
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install
-ENV HOST=0.0.0.0 PORT=3000 NODE_ENV=production
-EXPOSE $PORT
+ENV NODE_ENV=production
+
+EXPOSE 3000
+
 CMD ["/bin/sh", "docker-entrypoint.sh"]
