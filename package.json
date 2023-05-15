@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "packageManager": "pnpm@7.28.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --port 3100",
     "start": "astro dev",
     "build": "astro build",
     "build:vercel": "OUTPUT=vercel astro build",
@@ -18,6 +18,7 @@
     "@astrojs/node": "^5.0.4",
     "@astrojs/solid-js": "^2.0.2",
     "@astrojs/vercel": "^3.1.3",
+    "@prisma/client": "^4.14.0",
     "@unocss/reset": "^0.50.1",
     "astro": "^2.0.15",
     "eslint": "^8.36.0",
@@ -25,14 +26,17 @@
     "highlight.js": "^11.7.0",
     "js-sha256": "^0.9.0",
     "katex": "^0.6.0",
+    "langchain": "^0.0.75",
     "markdown-it": "^13.0.1",
     "markdown-it-highlightjs": "^4.0.1",
     "markdown-it-katex": "^2.0.3",
+    "prisma": "^4.14.0",
     "solid-js": "1.6.12",
     "solidjs-use": "^1.2.0",
     "undici": "^5.20.0"
   },
   "devDependencies": {
+    "@evan-yang/eslint-config": "^1.0.1",
     "@iconify-json/carbon": "^1.1.16",
     "@types/markdown-it": "^12.2.3",
     "@typescript-eslint/parser": "^5.54.1",
@@ -42,7 +46,6 @@
     "eslint-plugin-astro": "^0.24.0",
     "punycode": "^2.3.0",
     "unocss": "^0.50.1",
-    "@evan-yang/eslint-config": "^1.0.1",
     "vite-plugin-pwa": "^0.14.1"
   }
 }
