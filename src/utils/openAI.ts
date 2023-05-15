@@ -1,6 +1,7 @@
 import { createParser } from 'eventsource-parser'
 import type { ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 import type { ChatMessage } from '@/types'
+import { chunk } from 'midash'
 
 export const model = import.meta.env.OPENAI_API_MODEL || 'gpt-3.5-turbo'
 
@@ -58,8 +59,25 @@ export const parseOpenAIStream = (rawResponse: Response) => {
       }
 
       const parser = createParser(streamParser)
-      for await (const chunk of rawResponse.body as any)
+      for await (const chunk of rawResponse.body as any) {
         parser.feed(decoder.decode(chunk))
+      }
+    }
+  })
+
+  return new Response(stream)
+}
+
+export const parseTextStream = (text: string) => {
+  const encoder = new TextEncoder()
+  const decoder = new TextDecoder()
+
+  const stream = new ReadableStream({
+    async start(controller) {
+      for (const _chunk of chunk(text, 3)) {
+        controller.enqueue(encoder.encode(_chunk.join('')))
+      }
+      controller.close()
     },
   })
 

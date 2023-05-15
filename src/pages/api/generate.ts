@@ -1,7 +1,7 @@
 // #vercel-disable-blocks
 import { ProxyAgent, fetch } from 'undici'
 // #vercel-end
-import { generatePayload, parseOpenAIStream } from '@/utils/openAI'
+import { generatePayload, parseTextStream } from '@/utils/openAI'
 import { verifySignature } from '@/utils/auth'
 import type { APIRoute } from 'astro'
 import { PrismaVectorStore } from 'langchain/vectorstores/prisma'
@@ -53,20 +53,19 @@ export const post: APIRoute = async(context) => {
     question,
     chat_history: [],
   });
-
   console.log(res)
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const response = await fetch(`${baseUrl}/v1/chat/completions`, initOptions).catch((err: Error) => {
-    console.error(err)
-    return new Response(JSON.stringify({
-      error: {
-        code: err.name,
-        message: err.message,
-      },
-    }), { status: 500 })
-  }) as Response
+  // const response = await fetch(`${baseUrl}/v1/chat/completions`, initOptions).catch((err: Error) => {
+  //   console.error(err)
+  //   return new Response(JSON.stringify({
+  //     error: {
+  //       code: err.name,
+  //       message: err.message,
+  //     },
+  //   }), { status: 500 })
+  // }) as Response
 
-  return parseOpenAIStream(response) as Response
+  // TODO: 流式传输
+  return new Response(res.text)
 }

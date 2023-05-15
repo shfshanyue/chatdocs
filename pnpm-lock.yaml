@@ -49,6 +49,9 @@ dependencies:
   markdown-it-katex:
     specifier: ^2.0.3
     version: 2.0.3
+  midash:
+    specifier: ^0.8.2
+    version: 0.8.2
   prisma:
     specifier: ^4.14.0
     version: 4.14.0
@@ -5999,6 +6002,11 @@ packages:
     dependencies:
       braces: 3.0.2
       picomatch: 2.3.1
+
+  /midash@0.8.2:
+    resolution: {integrity: sha512-P8nzSWlA+zQhRCQsmDqQBCsLS+lpRC+M0/IVRKeE/27+ooRaUUuO7QsdZXqrbW966aOBxsIeINVEJTz8nRhm+w==}
+    engines: {node: '>=14'}
+    dev: false
 
   /mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}

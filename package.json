@@ -30,6 +30,7 @@
     "markdown-it": "^13.0.1",
     "markdown-it-highlightjs": "^4.0.1",
     "markdown-it-katex": "^2.0.3",
+    "midash": "^0.8.2",
     "prisma": "^4.14.0",
     "solid-js": "1.6.12",
     "solidjs-use": "^1.2.0",
