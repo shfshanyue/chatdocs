@@ -2,6 +2,8 @@
 
 使用 GPT-4 API 与 LangChain 构建适用于多个大型 `pdf`/`md`/`mdx`/`txt`/`epub` 等任意文件格式的 ChatGPT 智能知识库 AI 机器人。
 
+![](https://static.shanyue.tech/images/23-05-16/clipboard-7590.dd2989.webp)
+
 ## 环境要求
 
 1. `node.js >= 18`

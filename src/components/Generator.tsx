@@ -199,13 +199,13 @@ export default () => {
 
   return (
     <div my-6>
-      <SystemRoleSettings
+      {/* <SystemRoleSettings
         canEdit={() => messageList().length === 0}
         systemRoleEditing={systemRoleEditing}
         setSystemRoleEditing={setSystemRoleEditing}
         currentSystemRoleSettings={currentSystemRoleSettings}
         setCurrentSystemRoleSettings={setCurrentSystemRoleSettings}
-      />
+      /> */}
       <Index each={messageList()}>
         {(message, index) => (
           <MessageItem

@@ -26,7 +26,7 @@ export default defineConfig({
     unocss(),
     solidJs(),
   ],
-  output: 'static',
+  output: process.env.MODE || 'server',
   adapter: envAdapter(),
   vite: {
     plugins: [
