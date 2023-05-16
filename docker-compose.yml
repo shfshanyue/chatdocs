@@ -6,10 +6,8 @@ services:
     restart: always
     env_file:
       - .env
-    depends_on:
-      - pgvector
     labels:
-      - "traefik.http.routers.law.rule=Host(`law.shanyue.tech`)"
+      - "traefik.http.routers.law.rule=Host(`law.dev.shanyue.tech`)"
       - traefik.http.routers.law.tls=true
       - traefik.http.routers.law.tls.certresolver=le
 
