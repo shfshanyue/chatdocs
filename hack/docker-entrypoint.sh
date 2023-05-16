@@ -5,7 +5,7 @@ sub_service_pid=""
 sub_service_command="node dist/server/entry.mjs"
 
 function init() {
-    /bin/sh ./docker-env-replace.sh
+    /bin/sh ./hack/docker-env-replace.sh
 }
 
 function main {
@@ -14,7 +14,8 @@ function main {
   echo "Starting service..."
   
   npx prisma migrate deploy
-  npx tsx scripts/inject.ts
+  npx prisma generate
+#  npx tsx scripts/inject.ts
 
   eval "$sub_service_command &"
   sub_service_pid=$!

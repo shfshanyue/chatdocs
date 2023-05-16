@@ -1,21 +1,19 @@
 version: '3'
 
 services:
-  chatgpt-demo:
+  law:
     build: .
     restart: always
     env_file:
       - .env
     depends_on:
       - pgvector
-  pgvector:
-    image: ankane/pgvector
-    ports:
-      - 5433:5432
-    volumes:
-      - db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=password
+    labels:
+      - "traefik.http.routers.law.rule=Host(`law.shanyue.tech`)"
+      - traefik.http.routers.law.tls=true
+      - traefik.http.routers.law.tls.certresolver=le
 
-volumes:
-  db:
+networks:
+  default:
+    external:
+      name: traefik_default

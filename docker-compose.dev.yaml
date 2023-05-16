@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  law-dev:
+    image: "node:18"
+    restart: always
+    volumes:
+      - .:/code
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+    working_dir: /code
+    command: npm run dev
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+    labels:
+      - "traefik.http.routers.law-dev.rule=Host(`law.dev.shanyue.tech`)"
+      - traefik.http.routers.law-dev.tls=true
+      - traefik.http.routers.law-dev.tls.certresolver=le
+    ports:
+      - 3100:3000
+
+  pgvector:
+    image: "ankane/pgvector:v0.4.2"
+    ports:
+      - 5433:5432
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+
+volumes:
+  db:
+
+networks:
+  default:
+    external:
+      name: traefik_default
