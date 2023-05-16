@@ -1,3 +1,8 @@
 {
-  "buildCommand": "OUTPUT=vercel astro build"
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "https://law.dev.shanyue.tech/api/:match*"
+    }
+  ]
 }
